@@ -4207,6 +4207,7 @@
                 1
             ],
             "height": 14,
+            "id": 1,
             "name": "Collisions Layer",
             "opacity": 1,
             "type": "tilelayer",
@@ -8419,10 +8420,11 @@
                 0
             ],
             "height": 14,
+            "id": 2,
             "name": "Back Layer",
             "opacity": 1,
             "type": "tilelayer",
-            "visible": true,
+            "visible": false,
             "width": 300,
             "x": 0,
             "y": 0
@@ -12631,19 +12633,21 @@
                 148
             ],
             "height": 14,
+            "id": 3,
             "name": "Main Layer",
             "opacity": 1,
             "type": "tilelayer",
-            "visible": true,
+            "visible": false,
             "width": 300,
             "x": 0,
             "y": 0
         }
     ],
+    "nextlayerid": 4,
     "nextobjectid": 1,
     "orientation": "orthogonal",
     "renderorder": "right-down",
-    "tiledversion": "1.1.4",
+    "tiledversion": "1.2.0",
     "tileheight": 16,
     "tilesets": [
         {
@@ -12675,6 +12679,6 @@
     ],
     "tilewidth": 16,
     "type": "map",
-    "version": 1,
+    "version": 1.2,
     "width": 300
 }
