@@ -14,5 +14,3 @@ Run next commands in your terminal:
 | ------------- | ------------------------------------------------------------------------------------------- |
 | `npm install` | Install dependencies and launch browser with examples.                                      |
 | `npm run dev` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
-
-=======
