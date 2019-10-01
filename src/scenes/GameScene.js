@@ -50,7 +50,7 @@ class GameScene extends Phaser.Scene {
             "Collisions Layer",
             this.tileset,
             0,
-            495
+            470
         );
         this.collisionLayer.setVisible(false);
 
