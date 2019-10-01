@@ -13,12 +13,34 @@ class TitleScene extends Phaser.Scene {
         // };
         // this.anims.create(config);
 
-        this.title = this.add.sprite(this.sys.game.config.width / 2, 16 * 5);
+        this.backgroundMoon = this.add.tileSprite(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 2,
+            384,
+            224,
+            "bg-moon"
+        );
+
+        this.backgroundMountains = this.add.tileSprite(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 2,
+            384,
+            224,
+            "bg-mountains"
+        );
+
+        this.title = this.add.image(
+            this.sys.game.config.width / 2,
+            this.sys.game.config.height / 2,
+            "title"
+        );
+
         this.attractMode = this.scene.launch("GameScene");
 
         this.scene.bringToTop();
 
         this.registry.set("restartScene", false);
+
         this.registry.set("attractMode", false);
 
         let sh = window.screen.availHeight;
@@ -28,27 +50,20 @@ class TitleScene extends Phaser.Scene {
         let multiplier = 1;
         if (sh / sw > 0.6) {
             // Portrait, fit width
-            multiplier = sw / 800;
+            multiplier = sw / 384;
         } else {
-            multiplier = sh / 600;
+            multiplier = sh / 224;
         }
         multiplier = Math.floor(multiplier);
-        let el = document.getElementsByTagName("canvas")[0];
-        el.style.width = 800 * multiplier + "px";
-        el.style.height = 600 * multiplier + "px";
+        // let el = document.getElementsByTagName("canvas")[0];
+        // el.style.width = 500 + "px";
+        // el.style.height = 288 + "px";
 
-        // this.pressX = this.add.bitmapText(
-        //     16 * 8 + 4,
-        //     8 * 16,
-        //     "font",
-        //     "PRESS X TO START",
-        //     8
-        // );
         this.blink = 1000;
 
-        // this.startKey = this.input.keyboard.addKey(
-        //     Phaser.Input.Keyboard.KeyCodes.X
-        // );
+        this.startKey = this.input.keyboard.addKey(
+            Phaser.Input.Keyboard.KeyCodes.X
+        );
     }
 
     update(time, delta) {
@@ -63,9 +78,9 @@ class TitleScene extends Phaser.Scene {
 
         if (!this.registry.get("attractMode")) {
         }
-        // if (this.startKey.isDown) {
-        //     this.startGame();
-        // }
+        if (this.startKey.isDown) {
+            this.startGame();
+        }
     }
 
     startGame() {

@@ -23,6 +23,17 @@ class GameScene extends Phaser.Scene {
         // Places to warp to (from pipes). These coordinates is used also to define current room (see below)
         this.destinations = {};
 
+        this.background = this.add
+            .tileSprite(
+                0,
+                0,
+                384,
+                224,
+                "bg-moon",
+                "assets/environment/bg-moon.png"
+            )
+            .setOrigin(0);
+
         // Add and play the music
         //this.music = this.sound.add("overworld");
         // this.music.play({

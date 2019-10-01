@@ -28,7 +28,10 @@ class BootScene extends Phaser.Scene {
             // prepare all animations, defined in a separate file
             makeAnimations(this);
             progress.destroy();
-            this.scene.start("TitleScene");
+            // TODO: Remove TitleScreen after user hits enter
+            // TODO: Make TitleScreen fill display area
+            // this.scene.start("TitleScene");
+            this.scene.start("GameScene");
         });
 
         // load title screen

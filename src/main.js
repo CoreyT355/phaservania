@@ -7,13 +7,26 @@ const config = {
     // For more settings see <https://github.com/photonstorm/phaser/blob/master/src/boot/Config.js>
     type: Phaser.AUTO,
     parent: "content",
-    width: 800,
-    height: 600,
+    pixelArt: true,
+    roundPixels: true,
     physics: {
         default: "arcade",
         arcade: {
-            gravity: { y: 800 },
+            gravity: { y: 600 },
             debug: false
+        }
+    },
+    scale: {
+        mode: Phaser.DOM.FILL,
+        width: 800,
+        height: 600,
+        min: {
+            width: 800,
+            height: 600
+        },
+        max: {
+            width: 1600,
+            height: 1200
         }
     },
     scene: [BootScene, TitleScene, GameScene]

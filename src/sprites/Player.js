@@ -3,7 +3,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         super(config.scene, config.x, config.y, config.key);
         config.scene.physics.world.enable(this);
         config.scene.add.existing(this);
-        this.acceleration = 600;
+        this.acceleration = 224;
         this.body.maxVelocity.x = 200;
         this.body.maxVelocity.y = 500;
         this.animSuffix = "";
@@ -41,7 +41,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         if (this.y > 2040) {
             // Really superdead, has been falling for a while.
             this.scene.scene.start("TitleScene");
-        } else if (this.y > 600 && this.alive) {
+        } else if (this.y > 224 && this.alive) {
             this.die();
         }
 
