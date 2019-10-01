@@ -2,6 +2,8 @@
 
 A Castlevania type game written with Phaser 3 and ES6
 
+This is just a fun side project to work on. I'll take any PR under consideration for Hacktoberfest. 
+
 ### Requirements
 
 We need [Node.js](https://nodejs.org) to install and run scripts.
