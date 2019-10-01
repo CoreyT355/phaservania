@@ -69,6 +69,16 @@ class BootScene extends Phaser.Scene {
         this.load.audio("hurt", ["assets/audio/hurt.ogg"]);
         this.load.audio("jump", ["assets/audio/jump.ogg"]);
     }
+
+    create() {
+
+        let bgmusic = this.sound.add("music");
+
+        bgmusic.play({
+            volume: 1,
+            loop: true
+        })
+    }
 }
 
 export default BootScene;
