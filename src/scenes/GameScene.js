@@ -49,7 +49,7 @@ class GameScene extends Phaser.Scene {
         this.collisionLayer = this.map.createStaticLayer(
             "Collisions Layer",
             this.tileset,
-            0,
+            -35,
             470
         );
         this.collisionLayer.setVisible(false);
