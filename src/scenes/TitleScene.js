@@ -1,5 +1,5 @@
 class TitleScene extends Phaser.Scene {
-    constructor(test) {
+    constructor() {
         super({
             key: "TitleScene"
         });
@@ -62,8 +62,11 @@ class TitleScene extends Phaser.Scene {
         this.blink = 1000;
 
         this.startKey = this.input.keyboard.addKey(
-            Phaser.Input.Keyboard.KeyCodes.X
+            Phaser.Input.Keyboard.KeyCodes.ENTER,
         );
+
+        let title_text = this.add.text(100, 100, 'Press ENTER')
+
     }
 
     update(time, delta) {
