@@ -158,34 +158,34 @@ class GameScene extends Phaser.Scene {
         this.score.textObject.setText(("" + this.score.pts).padStart(6, "0"));
     }
 
-    createHUD() {
-        const hud = this.add.bitmapText(
-            5 * 8,
-            8,
-            "font",
-            "MARIO                      TIME",
-            8
-        );
-        hud.setScrollFactor(0, 0);
-        this.levelTimer = {
-            textObject: this.add.bitmapText(36 * 8, 16, "font", "255", 8),
-            time: 150 * 1000,
-            displayedTime: 255,
-            hurry: false
-        };
-        this.levelTimer.textObject.setScrollFactor(0, 0);
-        this.score = {
-            pts: 0,
-            textObject: this.add.bitmapText(5 * 8, 16, "font", "000000", 8)
-        };
-        this.score.textObject.setScrollFactor(0, 0);
+    // createHUD() {
+    //     const hud = this.add.bitmapText(
+    //         5 * 8,
+    //         8,
+    //         "font",
+    //         "MARIO                      TIME",
+    //         8
+    //     );
+    //     hud.setScrollFactor(0, 0);
+    //     this.levelTimer = {
+    //         textObject: this.add.bitmapText(36 * 8, 16, "font", "255", 8),
+    //         time: 150 * 1000,
+    //         displayedTime: 255,
+    //         hurry: false
+    //     };
+    //     this.levelTimer.textObject.setScrollFactor(0, 0);
+    //     this.score = {
+    //         pts: 0,
+    //         textObject: this.add.bitmapText(5 * 8, 16, "font", "000000", 8)
+    //     };
+    //     this.score.textObject.setScrollFactor(0, 0);
 
-        if (this.attractMode) {
-            hud.alpha = 0;
-            this.levelTimer.textObject.alpha = 0;
-            this.score.textObject.alpha = 0;
-        }
-    }
+    //     if (this.attractMode) {
+    //         hud.alpha = 0;
+    //         this.levelTimer.textObject.alpha = 0;
+    //         this.score.textObject.alpha = 0;
+    //     }
+    // }
 
     cleanUp() {
         // Never called since 3.10 update (I called it from create before). If Everything is fine, I'll remove this method.
