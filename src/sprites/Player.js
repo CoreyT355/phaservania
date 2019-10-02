@@ -67,10 +67,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
             left: keys.left.isDown,
             right: keys.right.isDown,
             jump: keys.jump.isDown || keys.jump2.isDown,
-            attack: keys.attack.isDown
+            attack: keys.attack.isDown || keys.attack2.isDown
         };
 
         if (input.attack && this.animSuffix === "attack") {
+            this.body.setVelocityY(-400);
         }
 
         if (this.body.velocity.y > 0) {
@@ -134,6 +135,8 @@ export default class Player extends Phaser.GameObjects.Sprite {
             ) {
                 anim = "idle";
             }
+        } else if (input.attack) {
+            anim = "attack";
         } else {
             anim = "idle";
             if (

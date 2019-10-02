@@ -85,7 +85,10 @@ class GameScene extends Phaser.Scene {
                 Phaser.Input.Keyboard.KeyCodes.SPACE
             ),
             attack: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.Z
+                Phaser.Input.Keyboard.KeyCodes.CTRL
+            ),
+            attack2: this.input.keyboard.addKey(
+                Phaser.Input.Keyboard.KeyCodes.SHIFT
             ),
             left: this.input.keyboard.addKey(
                 Phaser.Input.Keyboard.KeyCodes.LEFT
