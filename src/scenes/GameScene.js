@@ -15,9 +15,12 @@ class GameScene extends Phaser.Scene {
             "animatedTiles",
             "animatedTiles"
         );
+
+        
     }
 
     create() {
+        
         this.attractMode = null;
 
         // Places to warp to (from pipes). These coordinates is used also to define current room (see below)
@@ -27,13 +30,38 @@ class GameScene extends Phaser.Scene {
             .tileSprite(
                 0,
                 0,
-                384,
-                224,
+                this.sys.game.config.width,
+                this.sys.game.config.height,
                 "bg-moon",
                 "assets/environment/bg-moon.png"
             )
-            .setOrigin(0);
-
+            .setOrigin(0)
+            .setScrollFactor(0);
+        
+        this.background = this.add
+            .tileSprite(
+                0,
+                0,
+                this.sys.game.config.width * 2,
+                this.sys.game.config.height * 3,
+                "bg-mountains",
+                "assets/environment/bg-mountains.png"
+            )
+            .setOrigin(0)
+            .setScrollFactor(0);
+        
+            this.background = this.add
+            .tileSprite(
+                0,
+                0,
+                this.sys.game.config.width * 2,
+                this.sys.game.config.height * 3,
+                "bg-graveyard",
+                "assets/environment/bg-graveyard.png"
+            )
+            .setOrigin(0)
+            .setScrollFactor(0);
+        
         // Add and play the music
         //this.music = this.sound.add("overworld");
         // this.music.play({
@@ -98,7 +126,7 @@ class GameScene extends Phaser.Scene {
             )
         };
 
-        //this.createHUD();
+        // this.createHUD();
 
         // If the game ended while physics was disabled
         this.physics.world.resume();
