@@ -118,7 +118,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
 
         let anim = null;
-        if (this.body.velocity.y !== 0) {
+        if (this.body.velocity.y !== 0 || this.jumping) {
             anim = "jump";
         } else if (this.body.velocity.x !== 0) {
             anim = "run";
