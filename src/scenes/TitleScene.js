@@ -1,104 +1,78 @@
 class TitleScene extends Phaser.Scene {
-    constructor() {
-        super({
-            key: "TitleScene"
-        });
-    }
-    preload() {
-        this.load.image("title", "assets/sprites/title-screen.png");
-    }
-    create() {
-        // let config = {
-        //     key: "title"
-        // };
-        // this.anims.create(config);
+	constructor() {
+		super({
+			key: "TitleScene"
+		});
+	}
+	preload() {
+		this.load.image("title", "assets/sprites/title-screen.png");
+	}
+	create() {
+		this.title = this.add.image(
+			this.sys.game.config.width / 2,
+			this.sys.game.config.height / 2,
+			"title"
+		);
 
-        this.backgroundMoon = this.add.tileSprite(
-            this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2,
-            384,
-            224,
-            "bg-moon"
-        );
+		// this.attractMode = this.scene.launch("GameScene");
 
-        this.backgroundMountains = this.add.tileSprite(
-            this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2,
-            384,
-            224,
-            "bg-mountains"
-        );
+		this.scene.bringToTop();
 
-        this.title = this.add.image(
-            this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2,
-            "title"
-        );
+		this.registry.set("restartScene", false);
 
-        this.attractMode = this.scene.launch("GameScene");
+		this.registry.set("attractMode", false);
 
-        this.scene.bringToTop();
+		let sh = window.screen.availHeight;
+		let sw = window.screen.availWidth;
+		let ch = 0;
+		let cw = 0;
+		let multiplier = 1;
+		if (sh / sw > 0.6) {
+			// Portrait, fit width
+			multiplier = sw / 384;
+		} else {
+			multiplier = sh / 224;
+		}
+		multiplier = Math.floor(multiplier);
 
-        this.registry.set("restartScene", false);
+		this.blink = 1000;
 
-        this.registry.set("attractMode", false);
+		this.startKey = this.input.keyboard.addKey(
+			Phaser.Input.Keyboard.KeyCodes.ENTER,
+		);
 
-        let sh = window.screen.availHeight;
-        let sw = window.screen.availWidth;
-        let ch = 0;
-        let cw = 0;
-        let multiplier = 1;
-        if (sh / sw > 0.6) {
-            // Portrait, fit width
-            multiplier = sw / 384;
-        } else {
-            multiplier = sh / 224;
-        }
-        multiplier = Math.floor(multiplier);
-        // let el = document.getElementsByTagName("canvas")[0];
-        // el.style.width = 500 + "px";
-        // el.style.height = 288 + "px";
+		let title_text = this.add.text(350, 400, 'Press ENTER')
 
-        this.blink = 1000;
+	}
 
-        this.startKey = this.input.keyboard.addKey(
-            Phaser.Input.Keyboard.KeyCodes.ENTER,
-        );
+	update(time, delta) {
+		if (this.registry.get("restartScene")) {
+			this.restartScene();
+		}
+		this.blink -= delta;
+		if (this.blink < 0) {
+			this.blink = 500;
+		}
 
-        let title_text = this.add.text(100, 100, 'Press ENTER')
+		if (!this.registry.get("attractMode")) {}
+		if (this.startKey.isDown) {
+			this.startGame();
+		}
+	}
 
-    }
+	startGame() {
+		this.scene.stop("GameScene");
+		this.registry.set("attractMode", false);
+		this.scene.start("GameScene");
+	}
 
-    update(time, delta) {
-        if (this.registry.get("restartScene")) {
-            this.restartScene();
-        }
-        this.blink -= delta;
-        if (this.blink < 0) {
-            //this.pressX.alpha = this.pressX.alpha === 1 ? 0 : 1;
-            this.blink = 500;
-        }
+	restartScene() {
+		this.scene.stop("GameScene");
+		this.scene.launch("GameScene");
+		this.scene.bringToTop();
 
-        if (!this.registry.get("attractMode")) {
-        }
-        if (this.startKey.isDown) {
-            this.startGame();
-        }
-    }
-
-    startGame() {
-        this.scene.stop("GameScene");
-        this.registry.set("attractMode", false);
-        this.scene.start("GameScene");
-    }
-
-    restartScene() {
-        this.scene.stop("GameScene");
-        this.scene.launch("GameScene");
-        this.scene.bringToTop();
-
-        this.registry.set("restartScene", false);
-    }
+		this.registry.set("restartScene", false);
+	}
 }
 
 export default TitleScene;

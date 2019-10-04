@@ -28,10 +28,6 @@ class BootScene extends Phaser.Scene {
             // prepare all animations, defined in a separate file
             makeAnimations(this);
             progress.destroy();
-            // TODO: Remove TitleScreen after user hits enter
-            // TODO: Make TitleScreen fill display area
-            // this.scene.start("TitleScene");
-            this.scene.start("GameScene");
         });
 
         // load title screen
@@ -63,15 +59,9 @@ class BootScene extends Phaser.Scene {
         this.load.audio("music", [
             "assets/audio/sci_fi_platformer04_main_loop.ogg"
         ]);
-        this.load.audio("attack", ["assets/audio/attack.ogg"]);
-        this.load.audio("kill", ["assets/audio/kill.ogg"]);
-        this.load.audio("rise", ["assets/audio/rise.ogg"]);
-        this.load.audio("hurt", ["assets/audio/hurt.ogg"]);
-        this.load.audio("jump", ["assets/audio/jump.ogg"]);
     }
 
     create() {
-
         let bgmusic = this.sound.add("music");
 
         bgmusic.play({
