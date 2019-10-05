@@ -13,21 +13,21 @@ class TitleScene extends Phaser.Scene {
         // };
         // this.anims.create(config);
 
-        this.backgroundMoon = this.add.tileSprite(
+        [
+            "bg-moon",
+            "bg-mountains"
+        ].forEach(bg => {
+            this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, bg);
+            this.background.setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+            this.background.setScrollFactor(0);
+        });
+
+        this.title = this.add.image(
             this.sys.game.config.width / 2,
             this.sys.game.config.height / 2,
-            384,
-            224,
-            "bg-moon"
+            "title"
         );
 
-        this.backgroundMountains = this.add.tileSprite(
-            this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2,
-            384,
-            224,
-            "bg-mountains"
-        );
 
         this.title = this.add.image(
             this.sys.game.config.width / 2,
@@ -65,7 +65,8 @@ class TitleScene extends Phaser.Scene {
             Phaser.Input.Keyboard.KeyCodes.ENTER,
         );
 
-        let title_text = this.add.text(100, 100, 'Press ENTER')
+        let title_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press ENTER')
+        title_text.setOrigin(0.5);
 
     }
 
