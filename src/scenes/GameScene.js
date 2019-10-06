@@ -65,7 +65,7 @@ class GameScene extends Phaser.Scene {
 			"Collisions Layer",
 			this.tileset,
 			-35,
-			600
+			570
 		);
 		this.collisionLayer.setVisible(false);
 
@@ -74,7 +74,7 @@ class GameScene extends Phaser.Scene {
 			"Main Layer",
 			this.tileset,
 			0,
-			670
+			600
 		);
 
 		// We got the map. Tell animated tiles plugin to loop through the tileset properties and get ready.
