@@ -68,6 +68,16 @@ class TitleScene extends Phaser.Scene {
         let title_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press ENTER')
         title_text.setOrigin(0.5);
 
+        let instruction_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Instructions')
+        instruction_text.setOrigin(0.5, -2);
+
+        let instruction_text_move = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Arrow Keys - Move/Jump')
+        instruction_text_move.setOrigin(0.5, -3);
+
+        let instruction_text_attack = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Ctrl/Shift - Attack')
+        instruction_text_attack.setOrigin(0.5, -4);
+    
+
     }
 
     update(time, delta) {
