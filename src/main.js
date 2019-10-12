@@ -1,6 +1,7 @@
 import "phaser";
 import BootScene from "./scenes/BootScene";
 import GameScene from "./scenes/GameScene";
+import PauseScene from "./scenes/PauseScene";
 import TitleScene from "./scenes/TitleScene";
 
 let titleScene = new TitleScene();
@@ -31,7 +32,7 @@ const config = {
             height: 1200
         }
     },
-    scene: [BootScene, TitleScene, GameScene]
+    scene: [BootScene, TitleScene, GameScene, PauseScene]
 };
 
 const game = new Phaser.Game(config);
