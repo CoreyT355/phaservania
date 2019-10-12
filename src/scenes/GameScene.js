@@ -82,7 +82,9 @@ class GameScene extends Phaser.Scene {
         // this.keys will contain all we need to control Mario.
         // Any key could just replace the default (like this.key.jump)
         this.keys = {
-            jump: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
+            jump: this.input.keyboard.addKey(
+                Phaser.Input.Keyboard.KeyCodes.UP
+            ),
             jump2: this.input.keyboard.addKey(
                 Phaser.Input.Keyboard.KeyCodes.SPACE
             ),
@@ -97,13 +99,20 @@ class GameScene extends Phaser.Scene {
             ),
             right: this.input.keyboard.addKey(
                 Phaser.Input.Keyboard.KeyCodes.RIGHT
-            )
+            ),
         };
 
         // this.createHUD();
 
         // If the game ended while physics was disabled
         this.physics.world.resume();
+
+        // Pause Game
+        // TODO: This currently only pauses one time. Need to 'reset' this functionality 
+        // somehow to allow infinite pausing
+        this.input.keyboard.once('keydown_BACKSPACE', function() {
+            this.pauseGame();
+        }, this);
 
         // Create Player!!!
         this.player = new Player({
@@ -116,6 +125,12 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.collisionLayer, this.player);
         // The camera should follow Mario
         this.cameras.main.startFollow(this.player);
+    }
+
+    pauseGame() {
+        this.scene.pause("GameScene");
+        this.scene.launch("PauseScene");
+        console.log("pause");
     }
 
     update(time, delta) {
