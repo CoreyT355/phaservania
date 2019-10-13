@@ -1,5 +1,6 @@
 import Player from "../sprites/Player";
 import AnimatedTiles from "phaser-animated-tiles/dist/AnimatedTiles.min.js";
+import Hud from "./Hud";
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -27,8 +28,8 @@ class GameScene extends Phaser.Scene {
         this.destinations = {};
 
         [
-                "bg-moon",
-                "bg-mountains",
+            "bg-moon",
+            "bg-mountains",
             "bg-graveyard"
         ].forEach(bg => {
             this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, bg);
@@ -102,8 +103,6 @@ class GameScene extends Phaser.Scene {
             ),
         };
 
-        // this.createHUD();
-
         // If the game ended while physics was disabled
         this.physics.world.resume();
 
@@ -125,6 +124,7 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.collisionLayer, this.player);
         // The camera should follow Mario
         this.cameras.main.startFollow(this.player);
+        this.hud = new Hud(this);
     }
 
     pauseGame() {
@@ -138,6 +138,7 @@ class GameScene extends Phaser.Scene {
             return;
         }
 
+        this.hud.update();
         // Run the update method of Mario
         this.player.update(this.keys, time, delta);
     }

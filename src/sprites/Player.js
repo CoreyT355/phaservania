@@ -8,7 +8,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.maxVelocity.y = 500;
         this.animSuffix = "";
         this.small();
-
+        this.health = 1;
         this.wasHurt = -1;
         this.flashToggle = false;
         this.star = {

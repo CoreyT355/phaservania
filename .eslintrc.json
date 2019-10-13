@@ -79,7 +79,7 @@
             }
         ],
         "space-before-function-paren": [
-            "never",
+            "error",
             {
                 "anonymous": "always",
                 "named": "always",
