@@ -1,6 +1,6 @@
 import Player from "../sprites/Player";
 import AnimatedTiles from "phaser-animated-tiles/dist/AnimatedTiles.min.js";
-import Hud from "./HUD.js";
+import Hud from "./Hud";
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
