@@ -20,7 +20,7 @@ class PauseScene extends Phaser.Scene {
 
     let pause_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'PAUSED')
     pause_text.setOrigin(0.5);
-    
+
     let resume_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press Backspace to Resume')
     resume_text.setOrigin(0.5, -2);
 
@@ -30,7 +30,7 @@ class PauseScene extends Phaser.Scene {
   }
 
   update() {
-    if(this.resumeKey.isDown) {
+    if (this.resumeKey.isDown) {
       this.resumeGame();
     }
   }

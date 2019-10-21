@@ -23,18 +23,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.jumpTimer = 0;
         this.jumping = false;
 
-        this.on(
-            "animationcomplete",
-            () => {
-                if (
-                    this.anims.currentAnim.key === "grow" ||
-                    this.anims.currentAnim.key === "shrink"
-                ) {
-                    this.scene.physics.world.resume();
-                }
-            },
-            this
-        );
+        this.on("animationcomplete", () => {
+            if (["grow", "shrink"].includes(this.anims.currentAnim.key) !== -1) {
+                this.scene.physics.world.resume();
+            }
+        }, this);
     }
 
     update(keys, time, delta) {
@@ -63,11 +56,21 @@ export default class Player extends Phaser.GameObjects.Sprite {
             }
         }
 
+        // This is used on each key to loop through the possible
+        // keys that are assigned to each action and returns a boolean
+        // the key input right now is only 'isDown' but is left as a param
+        // for future flexibility
+        let determineInput = (key, arr) => {
+            return arr.reduce( (t, c) => {
+               return {[key]: (t[key] | c[key])};
+            })[key];
+        };
+
         let input = {
-            left: keys.left.isDown,
-            right: keys.right.isDown,
-            jump: keys.jump.isDown || keys.jump2.isDown,
-            attack: keys.attack.isDown || keys.attack2.isDown
+            left: determineInput('isDown', keys.left),
+            right: determineInput('isDown', keys.right),
+            jump: determineInput('isDown', keys.jump),
+            attack: determineInput('isDown', keys.attack)
         };
 
         if (input.attack && this.animSuffix === "attack") {
@@ -79,30 +82,23 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
 
         this.jumpTimer -= delta;
+        
+        let velDirection = this.body.velocity.x > 0 ? -1 : 1;
 
-        if (input.left) {
+        if (input.left || input.right) {
+            let inputDirection = (input.left) ? -1: 1;
             if (this.body.velocity.y === 0) {
-                this.run(-this.acceleration);
+                this.run(this.acceleration * inputDirection);
             } else {
-                this.run(-this.acceleration / 3);
+                this.run(this.acceleration / 3 * inputDirection);
             }
-            this.flipX = true;
-        } else if (input.right) {
-            if (this.body.velocity.y === 0) {
-                this.run(this.acceleration);
-            } else {
-                this.run(this.acceleration / 3);
-            }
-            this.flipX = false;
+            this.flipX = (input.left) ? true : false;
         } else if (this.body.blocked.down) {
             if (Math.abs(this.body.velocity.x) < 10) {
                 this.body.setVelocityX(0);
                 this.run(0);
             } else {
-                this.run(
-                    ((this.body.velocity.x > 0 ? -1 : 1) * this.acceleration) /
-                        2
-                );
+                this.run((velDirection * this.acceleration) / 2);
             }
         } else if (!this.body.blocked.down) {
             this.run(0);
@@ -118,7 +114,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
         }
 
         let anim = null;
-        if (this.body.velocity.y !== 0 || this.jumping) {
+        if (this.body.velocity.y !== 0 || !this.body.blocked.down) {
             anim = "jump";
         } else if (this.body.velocity.x !== 0) {
             anim = "run";
@@ -175,9 +171,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
                 //this.scene.sound.playAudioSprite("sfx", "smb_jump-super");
             }
         }
+        
         if (this.body.velocity.y < 0 || this.body.blocked.down) {
             this.body.setVelocityY(-200);
         }
+        
         if (!this.jumping) {
             this.jumpTimer = 300;
         }
