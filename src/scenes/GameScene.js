@@ -16,26 +16,26 @@ class GameScene extends Phaser.Scene {
             "animatedTiles"
         );
 
-        
+
     }
 
     create() {
-        
+
         this.attractMode = null;
 
         // Places to warp to (from pipes). These coordinates is used also to define current room (see below)
         this.destinations = {};
 
         [
-                "bg-moon",
-                "bg-mountains",
+            "bg-moon",
+            "bg-mountains",
             "bg-graveyard"
         ].forEach(bg => {
             this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, bg);
             this.background.setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
             this.background.setScrollFactor(0);
         });
-        
+
         // Add and play the music
         //this.music = this.sound.add("overworld");
         // this.music.play({
@@ -82,24 +82,23 @@ class GameScene extends Phaser.Scene {
         // this.keys will contain all we need to control Mario.
         // Any key could just replace the default (like this.key.jump)
         this.keys = {
-            jump: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.UP
-            ),
-            jump2: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.SPACE
-            ),
-            attack: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.CTRL
-            ),
-            attack2: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.SHIFT
-            ),
-            left: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.LEFT
-            ),
-            right: this.input.keyboard.addKey(
-                Phaser.Input.Keyboard.KeyCodes.RIGHT
-            ),
+            jump: [
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
+            ],
+            attack: [
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL),
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT)
+            ],
+            left: [
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A)
+            ],
+            right: [
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
+                this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D)
+            ]
         };
 
         // this.createHUD();
@@ -108,11 +107,7 @@ class GameScene extends Phaser.Scene {
         this.physics.world.resume();
 
         // Pause Game
-        // TODO: This currently only pauses one time. Need to 'reset' this functionality 
-        // somehow to allow infinite pausing
-        this.input.keyboard.once('keydown_BACKSPACE', function() {
-            this.pauseGame();
-        }, this);
+        this.input.keyboard.on('keydown_BACKSPACE', this.pauseGame, this);
 
         // Create Player!!!
         this.player = new Player({
@@ -134,11 +129,9 @@ class GameScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        if (this.physics.world.isPaused) {
-            return;
-        }
+        if (this.physics.world.isPaused) return;
 
-        // Run the update method of Mario
+        // Run the update method of Not Mario
         this.player.update(this.keys, time, delta);
     }
 
