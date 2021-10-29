@@ -21,15 +21,15 @@ const config = {
     },
     scale: {
         mode: Phaser.DOM.FILL,
-        width: 800,
-        height: 600,
+        width: 768,
+        height: 448,
         min: {
-            width: 800,
-            height: 600
+            width: 768,
+            height: 448
         },
         max: {
-            width: 1600,
-            height: 1200
+            width: 1536,
+            height: 896
         }
     },
     scene: [BootScene, TitleScene, GameScene, PauseScene]

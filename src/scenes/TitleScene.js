@@ -6,6 +6,7 @@ class TitleScene extends Phaser.Scene {
     }
     preload() {
         this.load.image("title", "assets/sprites/title-screen.png");
+        this.load.image("press-enter", "assets/sprites/press-enter-text.png");
     }
     create() {
         // let config = {
@@ -31,8 +32,8 @@ class TitleScene extends Phaser.Scene {
 
         this.title = this.add.image(
             this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2,
-            "title"
+            (this.sys.game.config.height / 2) + 70,
+            "press-enter"
         );
 
         this.attractMode = this.scene.launch("GameScene");
@@ -65,21 +66,21 @@ class TitleScene extends Phaser.Scene {
             Phaser.Input.Keyboard.KeyCodes.ENTER,
         );
 
-        let title_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press ENTER')
-        title_text.setOrigin(0.5);
+        // let title_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press ENTER')
+        // title_text.setOrigin(0.5);
 
         
         let instruction_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Instructions')
-        instruction_text.setOrigin(0.5, -2);
+        instruction_text.setOrigin(0.5, -4);
         
         let instruction_text_move = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Arrow Keys - Move/Jump')
-        instruction_text_move.setOrigin(0.5, -3);
+        instruction_text_move.setOrigin(0.5, -5);
         
         let instruction_text_attack = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Ctrl/Shift - Attack')
-        instruction_text_attack.setOrigin(0.5, -4);
+        instruction_text_attack.setOrigin(0.5, -6);
         
         let instruction_text_pause = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Backspace - Pause')
-        instruction_text_pause.setOrigin(0.5, -5);
+        instruction_text_pause.setOrigin(0.5, -7);
     }
 
     update(time, delta) {

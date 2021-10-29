@@ -11,9 +11,6 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.scenePlugin(
             "animatedTiles",
-            AnimatedTiles,
-            "animatedTiles",
-            "animatedTiles"
         );
 
         
@@ -27,8 +24,8 @@ class GameScene extends Phaser.Scene {
         this.destinations = {};
 
         [
-                "bg-moon",
-                "bg-mountains",
+            "bg-moon",
+            "bg-mountains",
             "bg-graveyard"
         ].forEach(bg => {
             this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, bg);
