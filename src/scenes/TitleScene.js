@@ -56,9 +56,6 @@ class TitleScene extends Phaser.Scene {
             multiplier = sh / 224;
         }
         multiplier = Math.floor(multiplier);
-        // let el = document.getElementsByTagName("canvas")[0];
-        // el.style.width = 500 + "px";
-        // el.style.height = 288 + "px";
 
         this.blink = 1000;
 
@@ -66,10 +63,6 @@ class TitleScene extends Phaser.Scene {
             Phaser.Input.Keyboard.KeyCodes.ENTER,
         );
 
-        // let title_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press ENTER')
-        // title_text.setOrigin(0.5);
-
-        
         let instruction_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Instructions')
         instruction_text.setOrigin(0.5, -4);
         
@@ -87,11 +80,12 @@ class TitleScene extends Phaser.Scene {
         if (this.registry.get("restartScene")) {
             this.restartScene();
         }
-        this.blink -= delta;
-        if (this.blink < 0) {
-            //this.pressX.alpha = this.pressX.alpha === 1 ? 0 : 1;
-            this.blink = 500;
-        }
+        
+        // this.blink -= delta;
+        // if (this.blink < 0) {
+        //     // this.pressX.alpha = this.pressX.alpha === 1 ? 0 : 1;
+        //     this.blink = 500;
+        // }
 
         if (!this.registry.get("attractMode")) {
         }
@@ -100,19 +94,19 @@ class TitleScene extends Phaser.Scene {
         }
     }
 
-    startGame() {
-        this.scene.stop("GameScene");
-        this.registry.set("attractMode", false);
-        this.scene.start("GameScene");
-    }
+    // startGame() {
+    //     this.scene.stop("GameScene");
+    //     this.registry.set("attractMode", false);
+    //     this.scene.start("GameScene");
+    // }
 
-    restartScene() {
-        this.scene.stop("GameScene");
-        this.scene.launch("GameScene");
-        this.scene.bringToTop();
+    // restartScene() {
+    //     this.scene.stop("GameScene");
+    //     this.scene.launch("GameScene");
+    //     this.scene.bringToTop();
 
-        this.registry.set("restartScene", false);
-    }
+    //     this.registry.set("restartScene", false);
+    // }
 }
 
 export default TitleScene;

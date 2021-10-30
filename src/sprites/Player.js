@@ -23,18 +23,18 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.jumpTimer = 0;
         this.jumping = false;
 
-        this.on(
-            "animationcomplete",
-            () => {
-                if (
-                    this.anims.currentAnim.key === "grow" ||
-                    this.anims.currentAnim.key === "shrink"
-                ) {
-                    this.scene.physics.world.resume();
-                }
-            },
-            this
-        );
+        // this.on(
+        //     "animationcomplete",
+        //     () => {
+        //         if (
+        //             this.anims.currentAnim.key === "grow" ||
+        //             this.anims.currentAnim.key === "shrink"
+        //         ) {
+        //             this.scene.physics.world.resume();
+        //         }
+        //     },
+        //     this
+        // );
     }
 
     update(keys, time, delta) {

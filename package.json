@@ -5,7 +5,7 @@
     "author": "niklas berg <me@niklasberg.se>",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack --mode=development",
+        "dev": "webpack --mode=development --no-open",
         "deploy": "webpack  --mode=production --config webpack.production.config.js",
         "test": "eslint ./src/**/**.js"
     },
@@ -14,6 +14,7 @@
         "@babel/core": "^7.0.0",
         "@babel/polyfill": "^7.0.0",
         "@babel/preset-env": "^7.0.0",
+        "@webpack-cli/serve": "^1.6.0",
         "babel-eslint": "^9.0.0",
         "babel-loader": "^8.0.0",
         "browser-sync": "^2.26.7",
@@ -26,9 +27,10 @@
         "html-webpack-plugin": "^3.2.0",
         "raw-loader": "^0.5.1",
         "webpack": "^4.18.0",
-        "webpack-cli": "^3.1.0"
+        "webpack-cli": "^3.3.12"
     },
     "dependencies": {
+        "http-server": "^14.0.0",
         "phaser": "3.15.0",
         "phaser-animated-tiles": "^2.0.2"
     }
