@@ -232,11 +232,11 @@ export default class Player extends Phaser.GameObjects.Sprite {
 
     die() {
         this.log(["die",this.alive]);
-        //this.scene.music.pause();
+        this.scene.music.pause();
         // this.scene.sound.playAudioSprite("sfx", "smb_mariodie");
-        // this.body.setAcceleration(0);
-        // this.body.setVelocity(0, -300);
-        // this.alive = false;
+        this.body.setAcceleration(0);
+        this.body.setVelocity(0, -300);
+        this.alive = false;
     }
 
     log(me){
