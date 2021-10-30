@@ -57,7 +57,10 @@ module.exports = {
             server: {
                 baseDir: ['./', './dev']
             }
-        })
+        }, 
+        {
+                reload: false
+            })
     ],
     module: {
         rules: [

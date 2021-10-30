@@ -15,21 +15,21 @@ const config = {
     physics: {
         default: "arcade",
         arcade: {
-            gravity: { y: 600 },
-            debug: false
+            gravity: { y: 800 },
+            debug: true
         }
     },
     scale: {
         mode: Phaser.DOM.FILL,
-        width: 800,
-        height: 600,
+        width: 768,
+        height: 448,
         min: {
-            width: 800,
-            height: 600
+            width: 768,
+            height: 448
         },
         max: {
-            width: 1600,
-            height: 1200
+            width: 1536,
+            height: 896
         }
     },
     scene: [BootScene, TitleScene, GameScene, PauseScene]
@@ -37,5 +37,5 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-game.scene.add('TitleScene', titleScene);
-game.scene.start('TitleScene')
+// game.scene.add('TitleScene', titleScene);
+// game.scene.start('TitleScene')

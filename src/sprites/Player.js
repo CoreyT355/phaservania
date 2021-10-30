@@ -7,7 +7,6 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.body.maxVelocity.x = 200;
         this.body.maxVelocity.y = 500;
         this.animSuffix = "";
-        this.small();
 
         this.wasHurt = -1;
         this.flashToggle = false;
@@ -23,37 +22,32 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.jumpTimer = 0;
         this.jumping = false;
 
-        this.on(
-            "animationcomplete",
-            () => {
-                if (
-                    this.anims.currentAnim.key === "grow" ||
-                    this.anims.currentAnim.key === "shrink"
-                ) {
-                    this.scene.physics.world.resume();
-                }
-            },
-            this
-        );
+        this.large();
+
+        // this.on(
+        //     "animationcomplete",
+        //     () => {
+        //         if (
+        //             this.anims.currentAnim.key === "grow" ||
+        //             this.anims.currentAnim.key === "shrink"
+        //         ) {
+        //             this.scene.physics.world.resume();
+        //         }
+        //     },
+        //     this
+        // );
     }
 
     update(keys, time, delta) {
-        if (this.y > 2040) {
-            // Really superdead, has been falling for a while.
-            this.scene.scene.start("TitleScene");
-        } else if (this.y > 224 && this.alive) {
-            this.die();
-        }
-
         // Don't do updates while entering the pipe or being dead
-        if (this.enteringPipe || !this.alive) {
-            return;
-        }
+        // if (this.enteringPipe || !this.alive) {
+        //     return;
+        // }
 
         // Just run callbacks when hitting something from below or trying to enter it
 
         this.scene.physics.world.collide(this, this.scene.groundLayer);
-
+        this.log([this.wasHurt,"hurt update"]);
         if (this.wasHurt > 0) {
             this.wasHurt -= delta;
             this.flashToggle = !this.flashToggle;
@@ -153,6 +147,7 @@ export default class Player extends Phaser.GameObjects.Sprite {
             this.anims.currentAnim.key !== anim &&
             !this.scene.physics.world.isPaused
         ) {
+            this.log("anim",anim);
             this.anims.play(anim);
         }
 
@@ -184,31 +179,36 @@ export default class Player extends Phaser.GameObjects.Sprite {
         this.jumping = true;
     }
 
-    // enemyBounce(enemy) {
-    //     // Force Player y-position up a bit (on top of the enemy) to avoid getting killed
-    //     // by neigbouring enemy before being able to bounce
-    //     this.body.y = enemy.body.y - this.body.height;
-    //     // TODO: if jump-key is down, add a boost value to jump-velocity to use and init jump for controls to handle.
-    //     this.body.setVelocityY(-150);
-    // }
+    enemyBounce(enemy) {
+        console.log("enemyBounce");
+        // Force Player y-position up a bit (on top of the enemy) to avoid getting killed
+        // by neigbouring enemy before being able to bounce
+        this.body.y = enemy.body.y - this.body.height;
+        // TODO: if jump-key is down, add a boost value to jump-velocity to use and init jump for controls to handle.
+        this.body.setVelocityY(-150);
+    }
 
-    // hurtBy(enemy) {
-    //     if (!this.alive) {
-    //         return;
-    //     }
-    //     if (this.wasHurt < 1) {
-    //         if (this.animSuffix !== "") {
-    //             this.resize(false);
-    //             //this.scene.sound.playAudioSprite("sfx", "smb_pipe");
+    hurtBy(enemy) {
+        // if (!this.alive) {
+        //     return;
+        // }
 
-    //             this.wasHurt = 2000;
-    //         } else {
-    //             this.die();
-    //         }
-    //     }
-    // }
+        if (this.wasHurt < 1) {
+            this.log("wasHurt");
+            // if (this.animSuffix !== "") {
+            this.log(["animSuffix",this.animSuffix]);
+            this.resize(true);
+            this.scene.sound.playAudioSprite("sfx", "hurt");
+            this.wasHurt = 2000;
+            // } else {
+            // this.log("die");
+            //     this.die();
+            // }
+        }
+    }
 
     resize(large) {
+        this.log(["resize",large]);
         this.scene.physics.world.pause();
         if (large) {
             this.large();
@@ -224,17 +224,22 @@ export default class Player extends Phaser.GameObjects.Sprite {
     small() {
         this.body.setSize(this.width, this.height);
     }
+
     large() {
         this.body.setSize(10, 22);
         this.body.offset.set(3, 10);
     }
 
     die() {
-        //this.scene.music.pause();
-        // this.play("death");
+        this.log(["die",this.alive]);
+        this.scene.music.pause();
         // this.scene.sound.playAudioSprite("sfx", "smb_mariodie");
-        // this.body.setAcceleration(0);
-        // this.body.setVelocity(0, -300);
-        // this.alive = false;
+        this.body.setAcceleration(0);
+        this.body.setVelocity(0, -300);
+        this.alive = false;
+    }
+
+    log(me){
+        console.log(me)
     }
 }
