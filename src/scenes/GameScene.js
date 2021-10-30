@@ -92,6 +92,8 @@ class GameScene extends Phaser.Scene {
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
 
+        this.cameras.main.setBounds(-320, 0, 4800, 4450);
+
         // This group contains all enemies for collision and calling update-methods
         this.enemyGroup = this.add.group();
 
@@ -137,7 +139,7 @@ class GameScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             key: "player",
-            x: 50,
+            x: 4300,
             y: this.sys.game.config.height
         });
         this.collisionLayer.setCollisionBetween(1, 999, true);
