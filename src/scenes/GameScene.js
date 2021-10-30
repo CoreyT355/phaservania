@@ -2,6 +2,7 @@ import Player from "../sprites/Player";
 import Goomba from '../sprites/Goomba';
 import Ghost from '../sprites/Ghost';
 import Gato from '../sprites/Gato';
+import SkeletonClothed from '../sprites/SkeletonClothed';
 import AnimatedTiles from "phaser-animated-tiles/dist/AnimatedTiles.min.js";
 
 class GameScene extends Phaser.Scene {
@@ -113,13 +114,19 @@ class GameScene extends Phaser.Scene {
                     new Gato({
                             scene: this,
                             key: 'sprites11',
-                            x: +150,
+                            x: +1550,
                             y: textHeightPosition - 50
                             }),
                     new Ghost({
                             scene: this,
                             key: 'sprites11',
                             x: +1500,
+                            y: textHeightPosition - 50
+                            }),
+                    new SkeletonClothed({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +1550,
                             y: textHeightPosition - 50
                             }),
                     new Ghost({
@@ -134,6 +141,12 @@ class GameScene extends Phaser.Scene {
                             x: +2500,
                             y: textHeightPosition - 50
                             }),
+                    new SkeletonClothed({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +2550,
+                            y: textHeightPosition - 50
+                            }),
                     new Ghost({
                             scene: this,
                             key: 'sprites11',
@@ -145,7 +158,13 @@ class GameScene extends Phaser.Scene {
                             key: 'sprites11',
                             x: +3500,
                             y: textHeightPosition - 50
-                            })
+                            }),
+                    new Gato({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +3150,
+                            y: textHeightPosition - 50
+                            }),
                     ];
 
 
