@@ -34,6 +34,21 @@ class BootScene extends Phaser.Scene {
             this.scene.start("GameScene");
         });
 
+        this.load.spritesheet('tiles', 'assets/sprites/super-mario.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+            spacing: 2
+        });
+
+        // Spritesheets with fixed sizes. Should be replaced with atlas:
+        this.load.spritesheet('mario', 'assets/sprites/mario-sprites.png', {
+            frameWidth: 16,
+            frameHeight: 32
+        });
+
+        this.load.atlas('mario-sprites', 'assets/mario-sprites.png', 'assets/mario-sprites.json');
+
+
         // load title screen
         this.load.image("title", "assets/sprites/title-screen.png");
         this.load.image("game-over", "assets/sprites/game-over.png");
@@ -68,6 +83,15 @@ class BootScene extends Phaser.Scene {
         this.load.audio("rise", ["assets/audio/rise.ogg"]);
         this.load.audio("hurt", ["assets/audio/hurt.ogg"]);
         this.load.audio("jump", ["assets/audio/jump.ogg"]);
+
+                // Sound effects in a audioSprite.
+        this.load.audioSprite('sfx', 'assets/audio/sfx.json', [
+            'assets/audio/sfx.ogg',
+            'assets/audio/sfx.mp3'
+        ], {
+            instances: 4
+        });
+
     }
 
     create() {
