@@ -139,8 +139,8 @@ class GameScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             key: "player",
-            x: 4300,
-            y: this.sys.game.config.height
+            x: 0,
+            y: this.sys.game.config.height + 20
         });
         this.collisionLayer.setCollisionBetween(1, 999, true);
         this.physics.add.collider(this.collisionLayer, this.player);
