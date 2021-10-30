@@ -12,11 +12,9 @@ class GameScene extends Phaser.Scene {
         this.load.scenePlugin(
             "animatedTiles",
             AnimatedTiles,
-            "animatedTiles",
-            "animatedTiles"
         );
 
-        
+        this.load.image("title", "assets/sprites/title-screen.png");
     }
 
     create() {
@@ -27,20 +25,41 @@ class GameScene extends Phaser.Scene {
         this.destinations = {};
 
         [
-                "bg-moon",
-                "bg-mountains",
+            "bg-moon",
+            "bg-mountains",
             "bg-graveyard"
         ].forEach(bg => {
             this.background = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, bg);
             this.background.setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
             this.background.setScrollFactor(0);
         });
+
+
+        let textWidthPosition = this.sys.game.config.width / 2;
+        let textHeightPosition = this.sys.game.config.height - 200;
+        textHeightPosition += 320;
+        textWidthPosition -= 350;
+
+        this.title = this.add.image(
+            textWidthPosition,
+            textHeightPosition,
+            "title"
+        );
+
+        textHeightPosition += 150;
         
-        // Add and play the music
-        //this.music = this.sound.add("overworld");
-        // this.music.play({
-        //     loop: true
-        // });
+        let instruction_text = this.add.text(textWidthPosition, textHeightPosition, 'Instructions')
+        instruction_text.setOrigin(0.5, -4);
+        
+        let instruction_text_move = this.add.text(textWidthPosition, textHeightPosition, 'Arrow Keys - Move/Jump')
+        instruction_text_move.setOrigin(0.5, -5);
+        
+        let instruction_text_attack = this.add.text(textWidthPosition, textHeightPosition, 'Ctrl/Shift - Attack')
+        instruction_text_attack.setOrigin(0.5, -6);
+        
+        let instruction_text_pause = this.add.text(textWidthPosition, textHeightPosition, 'Backspace - Pause')
+        instruction_text_pause.setOrigin(0.5, -7);
+
 
         // Add the map + bind the tileset
         this.map = this.make.tilemap({
@@ -51,17 +70,17 @@ class GameScene extends Phaser.Scene {
         this.collisionLayer = this.map.createStaticLayer(
             "Collisions Layer",
             this.tileset,
-            -35,
+            -355,
             470
         );
         this.collisionLayer.setVisible(false);
 
-        this.map.createDynamicLayer("Back Layer", this.tileset, 0, 500);
+        this.map.createDynamicLayer("Back Layer", this.tileset, -320, 500);
         // Dynamic layer because we want breakable and animated tiles
         this.groundLayer = this.map.createDynamicLayer(
             "Main Layer",
             this.tileset,
-            0,
+            -320,
             500
         );
 
@@ -72,6 +91,8 @@ class GameScene extends Phaser.Scene {
         // Probably not the correct way of doing this:
         this.physics.world.bounds.width = this.groundLayer.width;
         this.physics.world.bounds.height = this.groundLayer.height;
+
+        this.cameras.main.setBounds(-320, 0, 4800, 4450);
 
         // This group contains all enemies for collision and calling update-methods
         this.enemyGroup = this.add.group();
@@ -118,12 +139,12 @@ class GameScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             key: "player",
-            x: 50,
-            y: this.sys.game.config.height
+            x: 0,
+            y: this.sys.game.config.height + 20
         });
         this.collisionLayer.setCollisionBetween(1, 999, true);
         this.physics.add.collider(this.collisionLayer, this.player);
-        // The camera should follow Mario
+        // The camera should follow Player
         this.cameras.main.startFollow(this.player);
     }
 
@@ -138,7 +159,7 @@ class GameScene extends Phaser.Scene {
             return;
         }
 
-        // Run the update method of Mario
+        // Run the update method of Player
         this.player.update(this.keys, time, delta);
     }
 
@@ -146,35 +167,6 @@ class GameScene extends Phaser.Scene {
         this.score.pts += score;
         this.score.textObject.setText(("" + this.score.pts).padStart(6, "0"));
     }
-
-    // createHUD() {
-    //     const hud = this.add.bitmapText(
-    //         5 * 8,
-    //         8,
-    //         "font",
-    //         "MARIO                      TIME",
-    //         8
-    //     );
-    //     hud.setScrollFactor(0, 0);
-    //     this.levelTimer = {
-    //         textObject: this.add.bitmapText(36 * 8, 16, "font", "255", 8),
-    //         time: 150 * 1000,
-    //         displayedTime: 255,
-    //         hurry: false
-    //     };
-    //     this.levelTimer.textObject.setScrollFactor(0, 0);
-    //     this.score = {
-    //         pts: 0,
-    //         textObject: this.add.bitmapText(5 * 8, 16, "font", "000000", 8)
-    //     };
-    //     this.score.textObject.setScrollFactor(0, 0);
-
-    //     if (this.attractMode) {
-    //         hud.alpha = 0;
-    //         this.levelTimer.textObject.alpha = 0;
-    //         this.score.textObject.alpha = 0;
-    //     }
-    // }
 
     cleanUp() {
         // Never called since 3.10 update (I called it from create before). If Everything is fine, I'll remove this method.

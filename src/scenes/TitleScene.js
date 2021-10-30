@@ -6,6 +6,7 @@ class TitleScene extends Phaser.Scene {
     }
     preload() {
         this.load.image("title", "assets/sprites/title-screen.png");
+        this.load.image("press-enter", "assets/sprites/press-enter-text.png");
     }
     create() {
         // let config = {
@@ -31,8 +32,8 @@ class TitleScene extends Phaser.Scene {
 
         this.title = this.add.image(
             this.sys.game.config.width / 2,
-            this.sys.game.config.height / 2,
-            "title"
+            (this.sys.game.config.height / 2) + 70,
+            "press-enter"
         );
 
         this.attractMode = this.scene.launch("GameScene");
@@ -55,9 +56,6 @@ class TitleScene extends Phaser.Scene {
             multiplier = sh / 224;
         }
         multiplier = Math.floor(multiplier);
-        // let el = document.getElementsByTagName("canvas")[0];
-        // el.style.width = 500 + "px";
-        // el.style.height = 288 + "px";
 
         this.blink = 1000;
 
@@ -65,32 +63,29 @@ class TitleScene extends Phaser.Scene {
             Phaser.Input.Keyboard.KeyCodes.ENTER,
         );
 
-        let title_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Press ENTER')
-        title_text.setOrigin(0.5);
-
-        
         let instruction_text = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Instructions')
-        instruction_text.setOrigin(0.5, -2);
+        instruction_text.setOrigin(0.5, -4);
         
         let instruction_text_move = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Arrow Keys - Move/Jump')
-        instruction_text_move.setOrigin(0.5, -3);
+        instruction_text_move.setOrigin(0.5, -5);
         
         let instruction_text_attack = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Ctrl/Shift - Attack')
-        instruction_text_attack.setOrigin(0.5, -4);
+        instruction_text_attack.setOrigin(0.5, -6);
         
         let instruction_text_pause = this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height - 200, 'Backspace - Pause')
-        instruction_text_pause.setOrigin(0.5, -5);
+        instruction_text_pause.setOrigin(0.5, -7);
     }
 
     update(time, delta) {
         if (this.registry.get("restartScene")) {
             this.restartScene();
         }
-        this.blink -= delta;
-        if (this.blink < 0) {
-            //this.pressX.alpha = this.pressX.alpha === 1 ? 0 : 1;
-            this.blink = 500;
-        }
+        
+        // this.blink -= delta;
+        // if (this.blink < 0) {
+        //     // this.pressX.alpha = this.pressX.alpha === 1 ? 0 : 1;
+        //     this.blink = 500;
+        // }
 
         if (!this.registry.get("attractMode")) {
         }
@@ -99,19 +94,19 @@ class TitleScene extends Phaser.Scene {
         }
     }
 
-    startGame() {
-        this.scene.stop("GameScene");
-        this.registry.set("attractMode", false);
-        this.scene.start("GameScene");
-    }
+    // startGame() {
+    //     this.scene.stop("GameScene");
+    //     this.registry.set("attractMode", false);
+    //     this.scene.start("GameScene");
+    // }
 
-    restartScene() {
-        this.scene.stop("GameScene");
-        this.scene.launch("GameScene");
-        this.scene.bringToTop();
+    // restartScene() {
+    //     this.scene.stop("GameScene");
+    //     this.scene.launch("GameScene");
+    //     this.scene.bringToTop();
 
-        this.registry.set("restartScene", false);
-    }
+    //     this.registry.set("restartScene", false);
+    // }
 }
 
 export default TitleScene;
