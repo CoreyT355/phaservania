@@ -47,6 +47,57 @@ export default function makeAnimations(scene) {
         frameRate: 10,
         repeat: -1
     });
+    scene.anims.create({
+        key: "ghost-halo-2",
+        frames: scene.anims.generateFrameNames("atlas", {
+            prefix: "ghost-halo-",
+            start: 1,
+            end: 5,
+            zeroPad: 0
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: "hell-gato-1",
+        frames: scene.anims.generateFrameNames("atlas", {
+            prefix: "hell-gato-",
+            start: 1,
+            end: 5,
+            zeroPad: 0
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: "skeleton-clothed-1",
+        frames: scene.anims.generateFrameNames("atlas", {
+            prefix: "skeleton-clothed-",
+            start: 1,
+            end: 5,
+            zeroPad: 0
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: "skeleton-rise-clothed-1",
+        frames: scene.anims.generateFrameNames("atlas", {
+            prefix: "skeleton-rise-clothed-",
+            start: 1,
+            end: 5,
+            zeroPad: 0
+        }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+
+    //================================================================
+
 
     config = {
         key: "goomba",

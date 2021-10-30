@@ -1,4 +1,7 @@
 import Player from "../sprites/Player";
+import Goomba from '../sprites/Goomba';
+import Ghost from '../sprites/Ghost';
+import Gato from '../sprites/Gato';
 import AnimatedTiles from "phaser-animated-tiles/dist/AnimatedTiles.min.js";
 
 class GameScene extends Phaser.Scene {
@@ -84,6 +87,9 @@ class GameScene extends Phaser.Scene {
             500
         );
 
+
+        this.scene.groundLayer = this.collisionLayer;
+
         // We got the map. Tell animated tiles plugin to loop through the tileset properties and get ready.
         // We don't need to do anything beyond this point for animated tiles to work.
         this.sys.animatedTiles.init(this.map);
@@ -96,6 +102,65 @@ class GameScene extends Phaser.Scene {
 
         // This group contains all enemies for collision and calling update-methods
         this.enemyGroup = this.add.group();
+
+        let ghosts = [
+                    // new Goomba({
+                    //         scene: this,
+                    //         key: 'sprites16',
+                    //         x: 100,
+                    //         y: textHeightPosition - 50
+                    //     }),
+                    new Gato({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +150,
+                            y: textHeightPosition - 50
+                            }),
+                    new Ghost({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +1500,
+                            y: textHeightPosition - 50
+                            }),
+                    new Ghost({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +2000,
+                            y: textHeightPosition - 50
+                            }),
+                    new Ghost({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +2500,
+                            y: textHeightPosition - 50
+                            }),
+                    new Ghost({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +3000,
+                            y: textHeightPosition - 50
+                            }),
+                    new Ghost({
+                            scene: this,
+                            key: 'sprites11',
+                            x: +3500,
+                            y: textHeightPosition - 50
+                            })
+                    ];
+
+
+        ghosts.forEach(
+            (sprite) => {
+                this.enemyGroup.add(sprite);
+            }
+        );
+
+        this.enemyGroup.children.entries.forEach(
+            (sprite) => {
+                this.physics.add.collider(this.collisionLayer, sprite);
+            }
+        );
+
 
         // A group powerUps to update
         this.powerUps = this.add.group();
@@ -158,6 +223,12 @@ class GameScene extends Phaser.Scene {
         if (this.physics.world.isPaused) {
             return;
         }
+
+       this.enemyGroup.children.entries.forEach(
+            (sprite) => {
+                sprite.update(time, delta);
+            }
+        );
 
         // Run the update method of Player
         this.player.update(this.keys, time, delta);
